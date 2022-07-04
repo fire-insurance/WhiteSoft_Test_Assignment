@@ -1,0 +1,29 @@
+@import "../../assets/styles/variables.scss";
+
+.button {
+    transition: 0.25s background-color ease-in-out;
+    cursor: pointer;
+    outline: none;
+    border: none;
+
+    &_style_primary {
+        padding: 14px 45px;
+        border: 1px solid $purple;
+        background-color: $light-purple;
+
+        &:hover {
+            background-color: $purple;
+            color: white;
+        }
+    }
+
+    &_style_delete,
+    &_style_edit,
+    &_style_accept {
+        background-color: transparent;
+        
+        .text-content{
+            display: none;
+        }
+    }
+}

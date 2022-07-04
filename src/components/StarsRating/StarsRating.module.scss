@@ -1,0 +1,12 @@
+.stars-container {
+    display: flex;
+
+    .star {
+        width: 16px;
+
+        &_filled {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(28%) saturate(656%) hue-rotate(230deg)
+                brightness(99%) contrast(92%);
+        }
+    }
+}

@@ -29,6 +29,7 @@ const MoviesTable: FC<MoviesTableData> = ({ data }) => {
                             rowClass={styles.table__row}
                         />)
                 }
+
             </tbody>
 
 
