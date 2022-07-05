@@ -9,30 +9,31 @@ interface ProjectButtonProps {
     button_type?: 'submit' | 'button' | 'reset',
     text?: string,
     onClick(): any,
-    button_style: '_style_primary' | '_style_delete' | '_style_edit' | '_style_accept',
-    img_alt?: string
+    button_style: 'primary' | 'delete' | 'edit' | 'accept',
+    buttonClass?: string
+    img?: string
 }
 
 const defaultImages = {
-    '_style_primary': '',
-    '_style_delete': deleteIcon,
-    '_style_edit': editIcon,
-    '_style_accept': acceptIcon
+    'primary': '',
+    'delete': deleteIcon,
+    'edit': editIcon,
+    'accept': acceptIcon
 }
 
-const ProjectButton: FC<ProjectButtonProps> = ({ button_type, text, onClick, button_style, img_alt }) => {
+const ProjectButton: FC<ProjectButtonProps> = ({ button_type, text, onClick, button_style, buttonClass, img }) => {
     return (
         <button
             onClick={onClick}
-            className={cn(styles.button, styles['button' + button_style])}
+            className={cn(styles.button, styles['button_style_' + button_style], buttonClass)}
             type={button_type ? button_type : 'button'}
         >
             {text && <p className={styles['text-content']}>{text}</p>}
 
-            {button_style === '_style_primary' ?
-                <></>
+            {img ?
+                <img src={img} className={styles.icon}></img>
                 :
-                <img src={defaultImages[button_style]} alt={img_alt} />
+                button_style !== 'primary' && <img src={defaultImages[button_style]} className={styles.icon} />
             }
         </button>
     )

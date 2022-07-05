@@ -1,29 +1,55 @@
 @import "../../assets/styles/variables.scss";
 
 .button {
-    transition: 0.25s background-color ease-in-out;
+    transition: 0.15s background-color ease-in-out;
     cursor: pointer;
     outline: none;
-    border: none;
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 10px 30px;
+    display: flex;
+    column-gap: 10px;
+    background-color: white;
+    justify-content: space-between;
+    height: fit-content;
+
+    &:hover {
+        color: white;
+
+        .icon {
+            filter: brightness(0) saturate(100%) invert(100%);
+        }
+    }
 
     &_style_primary {
-        padding: 14px 45px;
-        border: 1px solid $purple;
+        border-color: $purple;
         background-color: $light-purple;
 
         &:hover {
             background-color: $purple;
-            color: white;
         }
     }
 
-    &_style_delete,
-    &_style_edit,
+    &_style_edit {
+        border-color: $styled_orange;
+
+        &:hover {
+            background-color: $styled_orange;
+        }
+    }
+
+    &_style_delete {
+        border-color: $styled_red;
+
+        &:hover {
+            background-color: $styled_red;
+        }
+    }
     &_style_accept {
-        background-color: transparent;
-        
-        .text-content{
-            display: none;
+        border-color: $styled_green;
+
+        &:hover {
+            background-color: $styled_green;
         }
     }
 }

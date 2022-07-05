@@ -20,7 +20,7 @@ const MoviesTable: FC<MoviesTableData> = ({ data }) => {
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody className={styles.table__body}>
                 {
                     data.map(movie =>
                         <Movie

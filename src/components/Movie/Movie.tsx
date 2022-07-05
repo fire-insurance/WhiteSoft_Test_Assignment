@@ -16,22 +16,34 @@ const Movie: FC<MovieComponent> = ({ movie, rowClass }) => {
 
     return (
         <tr className={rowClass}>
-            <td>{title}</td>
-            <td><StarsRating rate={rate} /></td>
-            <td>{date}</td>
-            <td>{trimText(comment, 200, true)}</td>
+            <td className={styles['movie-title']}>
+                <h4 className={styles['cell-title']}>Название</h4>
+                {title}
+            </td>
+            <td>
+                <h4 className={styles['cell-title']}>Оценка</h4>
+                <StarsRating rate={rate} />
+            </td>
+            <td>
+                <h4 className={styles['cell-title']}>Дата</h4>
+                {date}
+            </td>
+            <td className={styles.comment}>
+                <h4 className={styles['cell-title']}>Описание</h4>
+                {trimText(comment, 200, true)}
+            </td>
             <td className={styles['control-buttons']}>
                 <ProjectButton
                     text='Изменить'
-                    button_style='_style_edit'
-                    img_alt='Изменить данные фильма'
+                    button_style='edit'
                     onClick={() => { }}
+                    buttonClass={styles.button}
                 />
                 <ProjectButton
                     text='Удалить'
-                    button_style='_style_delete'
-                    img_alt='Удалить фильм'
+                    button_style='delete'
                     onClick={() => { }}
+                    buttonClass={styles.button}
                 />
             </td>
         </tr>
