@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import IMovie from '../../assets/interfaces/IMovie'
 import styles from './MoviesTable.module.scss'
 import Movie from '../Movie/Movie'
@@ -25,6 +25,22 @@ const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
         else setMovies(getMovies())
     }
 
+    const editMovie = (movie: IMovie) => {
+        console.log(movie)
+    }
+
+    const deleteMovie = (id: string) => {
+        return () => {
+
+        }
+    }
+
+    const addMovie = (movie: IMovie) => {
+        return () => {
+
+        }
+    }
+
     return (
         <>
             <div className={styles['table-controls']}>
@@ -33,6 +49,7 @@ const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
                     text='Добавить фильм'
                     button_style='primary'
                     onClick={() => { }}
+                    buttonClass={styles['add-movie-btn']}
                 />
             </div>
 
@@ -53,6 +70,8 @@ const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
                                 key={movie.id}
                                 movie={movie}
                                 rowClass={styles.table__row}
+                                acceptChanges={editMovie}
+                                deleteMovie={deleteMovie}
                             />)
                     }
 

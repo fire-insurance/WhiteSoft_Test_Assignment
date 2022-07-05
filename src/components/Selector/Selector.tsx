@@ -7,8 +7,8 @@ import arrowIcon from '../../assets/img/arrow.svg'
 interface SelectorProps {
     title: string,
     defaultValue: RatingSelectorOption,
-    options: RatingSelectorOption[]
-    onChoice(value: any): any
+    options: RatingSelectorOption[],
+    onChoice(value: any): any,
 }
 
 const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice }) => {
@@ -31,15 +31,15 @@ const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice })
 
         <div
             tabIndex={1}
+            onBlur={closeOptionsMenu}
             className={cn(styles.selector,
                 { [styles['selector_options-menu-opened']]: optionsOpened })}
         >
             <div
                 className={styles['selector__selected-value']}
-                onBlur={closeOptionsMenu}
                 onClick={toggleOptionsMenu}
             >
-                <span>{title}:</span>
+                {title && <span>{title}</span>}
                 {selectedValue}
                 <img className={styles['arrow-icon']} src={arrowIcon} alt="" />
             </div>

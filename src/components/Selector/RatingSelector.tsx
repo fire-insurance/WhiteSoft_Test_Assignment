@@ -8,28 +8,33 @@ const default_option: RatingSelectorOption = {
     option: <p>Все</p>
 }
 
-
 const selector_stars: number[] = [1, 2, 3, 4, 5]
 
 interface RatingSelectorProps {
-    onChoice(rate: number | string): any
+    onChoice(rate: number | string): any,
+    hasAllOption?: boolean,
+    defaultValueIndex?: number,
+    title?: string,
+    smallStars?: boolean
 }
 
-const RatingSelector: FC<RatingSelectorProps> = ({ onChoice }) => {
+const RatingSelector: FC<RatingSelectorProps> = ({ onChoice, hasAllOption = true, defaultValueIndex = 0, title, smallStars }) => {
 
     const selector_options: RatingSelectorOption[] =
         selector_stars.map((element) => {
             return {
                 value: element,
-                option: <StarsRating rate={element} />
+                option: <StarsRating rate={element} smallStars={smallStars} />
             }
         })
 
+    if (hasAllOption) selector_options.unshift(default_option)
+
     return (
         <Selector
-            title="Рейтинг"
-            defaultValue={default_option}
-            options={[default_option].concat(selector_options)}
+            title={title ?? ""}
+            defaultValue={selector_options[defaultValueIndex]}
+            options={selector_options}
             onChoice={onChoice}
         />
     )

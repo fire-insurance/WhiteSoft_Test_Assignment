@@ -8,5 +8,9 @@
             filter: brightness(0) saturate(100%) invert(73%) sepia(28%) saturate(656%) hue-rotate(230deg)
                 brightness(99%) contrast(92%);
         }
+
+        &_small {
+            width: 10px;
+        }
     }
 }

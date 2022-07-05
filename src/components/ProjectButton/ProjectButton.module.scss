@@ -38,7 +38,8 @@
         }
     }
 
-    &_style_delete {
+    &_style_delete,
+    &_style_cancel {
         border-color: $styled_red;
 
         &:hover {

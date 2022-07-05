@@ -2,6 +2,7 @@ import styles from './ProjectButton.module.scss'
 import deleteIcon from '../../assets/img/deleteIcon.svg'
 import editIcon from '../../assets/img/editIcon.svg'
 import acceptIcon from '../../assets/img/acceptIcon.svg'
+import cancelIcon from '../../assets/img/cancelIcon.svg'
 import { FC } from 'react'
 import cn from 'classnames'
 
@@ -9,7 +10,7 @@ interface ProjectButtonProps {
     button_type?: 'submit' | 'button' | 'reset',
     text?: string,
     onClick(): any,
-    button_style: 'primary' | 'delete' | 'edit' | 'accept',
+    button_style: 'primary' | 'delete' | 'edit' | 'accept' | 'cancel',
     buttonClass?: string
     img?: string
 }
@@ -18,7 +19,8 @@ const defaultImages = {
     'primary': '',
     'delete': deleteIcon,
     'edit': editIcon,
-    'accept': acceptIcon
+    'accept': acceptIcon,
+    'cancel': cancelIcon,
 }
 
 const ProjectButton: FC<ProjectButtonProps> = ({ button_type, text, onClick, button_style, buttonClass, img }) => {

@@ -5,3 +5,11 @@ export default interface IMovie {
     comment: string,
     date: string
 }
+
+export const defaultMovie: IMovie = {
+    id: '',
+    title: '',
+    rate: 1,
+    comment: '',
+    date: ''
+}

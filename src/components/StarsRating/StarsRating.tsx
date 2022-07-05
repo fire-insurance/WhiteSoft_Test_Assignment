@@ -4,10 +4,11 @@ import starImg from '../../assets/img/star.svg'
 import cn from 'classnames'
 
 interface StarsRatingProps {
-    rate: number
+    rate: number,
+    smallStars?: boolean
 }
 
-const StarsRating: FC<StarsRatingProps> = ({ rate }) => {
+const StarsRating: FC<StarsRatingProps> = ({ rate, smallStars = false }) => {
 
     const starsTemplate = [1, 2, 3, 4, 5]
 
@@ -18,7 +19,8 @@ const StarsRating: FC<StarsRatingProps> = ({ rate }) => {
                     key={star}
                     src={starImg}
                     alt="звездочка"
-                    className={cn(styles.star, { [styles['star_filled']]: index < rate })}
+                    className={cn(styles.star, { [styles['star_filled']]: index < rate },
+                        { [styles['star_small']]: smallStars })}
                 />
             )}
         </div>

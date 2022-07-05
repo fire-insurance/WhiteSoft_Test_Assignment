@@ -1,0 +1,39 @@
+@import "../../../assets/styles/variables.scss";
+
+.input {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 8px;
+    border-radius: 10px;
+    border: 2px solid $light-gray;
+    font-size: 14px;
+    transition: 0.25s border ease-in-out;
+    outline: none;
+
+    &:focus,
+    &:active,
+    &:focus {
+        border: 2px solid $purple;
+    }
+}
+
+.input-error {
+    position: relative;
+
+    &__text {
+        color: $styled-red;
+        font-size: 12px;
+        position: absolute;
+        left: 0;
+        top: calc(100%);
+    }
+
+    .input {
+        border: 1px solid $styled-red;
+    }
+}
+
+textarea {
+    resize: none;
+    height: 6rem;
+}

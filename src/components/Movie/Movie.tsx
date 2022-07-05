@@ -1,52 +1,46 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import IMovie from '../../assets/interfaces/IMovie';
 import styles from './Movie.module.scss'
 import trimText from '../../assets/helpers/trimText'
 import StarsRating from '../StarsRating/StarsRating';
 import ProjectButton from '../ProjectButton/ProjectButton';
+import MovieView from './MovieView';
+import MovieForm from './MovieForm';
 
 interface MovieComponent {
     movie: IMovie,
     rowClass?: string
+    acceptChanges(movie: IMovie): void,
+    deleteMovie(id: string): () => void
 }
 
-const Movie: FC<MovieComponent> = ({ movie, rowClass }) => {
+const Movie: FC<MovieComponent> = ({ movie, rowClass, acceptChanges, deleteMovie }) => {
 
-    const { id, title, rate, comment, date } = movie
+    const [editingMovie, setEditingMovie] = useState<boolean>(false)
+
+    const startEditingMovie = () => setEditingMovie(true)
+    const stopEditingMovie = () => setEditingMovie(false)
 
     return (
-        <tr className={rowClass}>
-            <td className={styles['movie-title']}>
-                <h4 className={styles['cell-title']}>Название</h4>
-                {title}
-            </td>
-            <td>
-                <h4 className={styles['cell-title']}>Оценка</h4>
-                <StarsRating rate={rate} />
-            </td>
-            <td>
-                <h4 className={styles['cell-title']}>Дата</h4>
-                {date}
-            </td>
-            <td className={styles.comment}>
-                <h4 className={styles['cell-title']}>Описание</h4>
-                {trimText(comment, 200, true)}
-            </td>
-            <td className={styles['control-buttons']}>
-                <ProjectButton
-                    text='Изменить'
-                    button_style='edit'
-                    onClick={() => { }}
-                    buttonClass={styles.button}
-                />
-                <ProjectButton
-                    text='Удалить'
-                    button_style='delete'
-                    onClick={() => { }}
-                    buttonClass={styles.button}
-                />
-            </td>
-        </tr>
+        <>
+            {
+                editingMovie ?
+                    <MovieForm
+                        movie={movie}
+                        stopEditingMovie={stopEditingMovie}
+                        acceptChanges={acceptChanges}
+                        rowClass={rowClass}
+                    ></MovieForm>
+                    :
+                    <MovieView
+                        movie={movie}
+                        deleteMovie={deleteMovie}
+                        startEditingMovie={startEditingMovie}
+                        rowClass={rowClass}
+                    ></MovieView>
+            }
+
+        </>
     )
 }
 
