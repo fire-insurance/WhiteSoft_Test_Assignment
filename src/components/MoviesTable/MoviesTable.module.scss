@@ -1,5 +1,11 @@
 @import "../../assets/styles/variables.scss";
 
+.table-controls{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .table {
     background-color: white;
     padding: 14px 0px;
@@ -51,6 +57,12 @@
 }
 
 @media screen and (max-width: 550px) {
+
+    .table-controls{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
     .table {
         font-size: 14px;
 

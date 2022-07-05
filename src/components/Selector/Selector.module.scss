@@ -1,0 +1,72 @@
+@import "../../assets/styles/variables.scss";
+
+.selector {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid $light-gray;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+    outline: none;
+    min-width: 250px;
+    &:hover,
+    &:active,
+    &:focus {
+        border-color: $purple;
+    }
+
+    &__selected-value {
+        padding: 15px;
+        display: flex;
+        column-gap: 1ch;
+    }
+
+    .arrow-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 15px;
+        transition: 0.25s;
+    }
+
+    &__options {
+        display: none;
+        position: absolute;
+        left: 0;
+        padding: 10px 0px;
+        top: calc(100% + 2px);
+        background-color: white;
+        flex-direction: column;
+        width: 100%;
+        box-shadow: 0px 5px 20px rgba(220, 220, 220, 0.25);
+        border-radius: 0px 0px 10px 10px;
+        z-index: 100;
+        transition: 0.25s all ease-in-out;
+
+        .option-button {
+            background-color: white;
+            border: none;
+            outline: none;
+            min-height: 50px;
+            display: grid;
+            place-items: center;
+            transition: 0.25s ease-in-out;
+
+            &:hover {
+                background-color: $light-gray;
+            }
+        }
+    }
+
+    &_options-menu-opened {
+        border-radius: 10px 10px 0px 0px;
+
+        .arrow-icon {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .selector__options {
+            display: flex;
+        }
+    }
+}

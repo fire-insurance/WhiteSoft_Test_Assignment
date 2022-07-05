@@ -1,39 +1,65 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import IMovie from '../../assets/interfaces/IMovie'
 import styles from './MoviesTable.module.scss'
 import Movie from '../Movie/Movie'
+import RatingSelector from '../Selector/RatingSelector'
+import ProjectButton from '../ProjectButton/ProjectButton'
 
 interface MoviesTableData {
-    data: IMovie[]
+    getMovies(): IMovie[]
 }
 
-const MoviesTable: FC<MoviesTableData> = ({ data }) => {
+const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
+
+    const [movies, setMovies] = useState<IMovie[]>([])
+
+    useEffect(() => {
+        setMovies(getMovies())
+    }, [])
+
+    const filterByRating = (rate: number | string) => {
+        if (rate > 0 && rate <= 5) {
+            const filteredMovies = getMovies().filter((movie) => movie.rate === rate)
+            setMovies(filteredMovies)
+        }
+        else setMovies(getMovies())
+    }
 
     return (
-        <table className={styles.table}>
-            <thead className={styles.table__header}>
-                <tr className={styles.table__row}>
-                    <th>Название</th>
-                    <th>Оценка</th>
-                    <th>Дата</th>
-                    <th>Описание</th>
-                </tr>
-            </thead>
+        <>
+            <div className={styles['table-controls']}>
+                <RatingSelector onChoice={filterByRating} />
+                <ProjectButton
+                    text='Добавить фильм'
+                    button_style='primary'
+                    onClick={() => { }}
+                />
+            </div>
 
-            <tbody className={styles.table__body}>
-                {
-                    data.map(movie =>
-                        <Movie
-                            key={movie.id}
-                            movie={movie}
-                            rowClass={styles.table__row}
-                        />)
-                }
+            <table className={styles.table}>
+                <thead className={styles.table__header}>
+                    <tr className={styles.table__row}>
+                        <th>Название</th>
+                        <th>Оценка</th>
+                        <th>Дата</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
 
-            </tbody>
+                <tbody className={styles.table__body}>
+                    {
+                        movies.map(movie =>
+                            <Movie
+                                key={movie.id}
+                                movie={movie}
+                                rowClass={styles.table__row}
+                            />)
+                    }
 
+                </tbody>
+            </table>
+        </>
 
-        </table>
     )
 }
 
