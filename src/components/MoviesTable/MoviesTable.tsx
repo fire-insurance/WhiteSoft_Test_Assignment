@@ -53,7 +53,10 @@ const MoviesTable = () => {
     return (
         <>
             <div className={styles['table-controls']}>
-                <RatingSelector onChoice={filterByRating} />
+                <RatingSelector
+                    onChoice={filterByRating}
+                    title='Оценка:'
+                />
                 <ProjectButton
                     text='Добавить фильм'
                     button_style={isAddingMovie ? 'disabled' : 'primary'}
