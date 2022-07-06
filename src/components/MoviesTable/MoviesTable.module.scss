@@ -12,7 +12,7 @@
     justify-self: flex-end;
 }
 
-.empty-table-text{
+.empty-table-text {
     grid-column: 1/-1;
 }
 
@@ -39,7 +39,7 @@
             background-color: $light-purple;
         }
 
-        td{
+        td {
             width: 100%;
             height: fit-content;
         }
@@ -76,6 +76,7 @@
     .table-controls {
         grid-template-columns: 1fr;
         row-gap: 20px;
+        grid-template-rows: repeat(2, 58px);
     }
 
     .add-movie-btn {
