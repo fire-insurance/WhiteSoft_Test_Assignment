@@ -31,7 +31,7 @@ const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice })
 
         <div
             tabIndex={1}
-            onBlur={closeOptionsMenu}
+          
             className={cn(styles.selector,
                 { [styles['selector_options-menu-opened']]: optionsOpened })}
         >

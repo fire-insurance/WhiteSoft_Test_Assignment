@@ -1,15 +1,13 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import IMovie from '../../assets/interfaces/IMovie'
 import styles from './MoviesTable.module.scss'
 import Movie from '../Movie/Movie'
 import RatingSelector from '../Selector/RatingSelector'
 import ProjectButton from '../ProjectButton/ProjectButton'
+import { getMovies, filterByRating, addMovie, editMovie, deleteMovie } from '../../movies-data'
 
-interface MoviesTableData {
-    getMovies(): IMovie[]
-}
 
-const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
+const MoviesTable = () => {
 
     const [movies, setMovies] = useState<IMovie[]>([])
 
@@ -17,34 +15,18 @@ const MoviesTable: FC<MoviesTableData> = ({ getMovies }) => {
         setMovies(getMovies())
     }, [])
 
-    const filterByRating = (rate: number | string) => {
-        if (rate > 0 && rate <= 5) {
-            const filteredMovies = getMovies().filter((movie) => movie.rate === rate)
-            setMovies(filteredMovies)
-        }
-        else setMovies(getMovies())
+    const filterTableByRating = (rate: number | string) => {
+        setMovies(filterByRating(rate))
     }
 
-    const editMovie = (movie: IMovie) => {
-        console.log(movie)
-    }
+    const addMovieToTable = (movie: IMovie) => {
 
-    const deleteMovie = (id: string) => {
-        return () => {
-
-        }
-    }
-
-    const addMovie = (movie: IMovie) => {
-        return () => {
-
-        }
     }
 
     return (
         <>
             <div className={styles['table-controls']}>
-                <RatingSelector onChoice={filterByRating} />
+                <RatingSelector onChoice={filterTableByRating} />
                 <ProjectButton
                     text='Добавить фильм'
                     button_style='primary'

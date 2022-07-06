@@ -59,6 +59,7 @@ const MovieForm: FC<MovieComponent> = ({ movie, rowClass, stopEditingMovie, acce
         }
 
         acceptChanges(movieState)
+        stopEditingMovie()
     }
 
 
