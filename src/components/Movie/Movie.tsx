@@ -11,7 +11,7 @@ interface MovieComponent {
     movie: IMovie,
     rowClass?: string
     acceptChanges(movie: IMovie): void,
-    deleteMovie(id: string): () => void
+    deleteMovie(id: string): void
 }
 
 const Movie: FC<MovieComponent> = ({ movie, rowClass, acceptChanges, deleteMovie }) => {

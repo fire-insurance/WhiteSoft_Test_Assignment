@@ -9,7 +9,7 @@ interface MovieComponent {
     movie: IMovie,
     rowClass?: string,
     startEditingMovie(): any,
-    deleteMovie(id: string): () => void
+    deleteMovie(id: string): any
 }
 
 const MovieView: FC<MovieComponent> = ({ movie, rowClass, startEditingMovie, deleteMovie }) => {
@@ -44,7 +44,7 @@ const MovieView: FC<MovieComponent> = ({ movie, rowClass, startEditingMovie, del
                 <ProjectButton
                     text='Удалить'
                     button_style='delete'
-                    onClick={deleteMovie(id)}
+                    onClick={() => deleteMovie(id)}
                     buttonClass={styles.button}
                 />
             </td>
