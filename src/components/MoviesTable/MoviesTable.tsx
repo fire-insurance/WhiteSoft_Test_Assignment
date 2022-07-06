@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import IMovie from '../../assets/interfaces/IMovie'
 import styles from './MoviesTable.module.scss'
 import Movie from '../Movie/Movie'
@@ -6,16 +6,49 @@ import RatingSelector from '../Selector/RatingSelector'
 import ProjectButton from '../ProjectButton/ProjectButton'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useReduxActions } from '../../hooks/useReduxActions'
+import MovieForm from '../Movie/MovieForm'
 
+/**
+ * Компонент, отображающий таблицу с фильмами и элементы управления:
+ * 
+ * фильтр по рейтингу
+ * кнопка "Добавить фильм"
+ */
 
 const MoviesTable = () => {
 
     const movies: IMovie[] = useTypedSelector(state => state.movies)
-    const { getMovies, filterByRating, addMovie, editMovie, deleteMovie } = useReduxActions()
+    const { getMovies, addMovie, editMovie, deleteMovie } = useReduxActions()
+
+    const [isAddingMovie, setIsAddingMovie] = useState<boolean>(false)
+    const startAddingMovie = () => setIsAddingMovie(true)
+    const stopAddingMovie = () => setIsAddingMovie(false)
+
+    const [ratingFilter, setRatingFilter] = useState<number | string>('all')
+    const [moviesDataChanged, setMoviesDataChanged] = useState<boolean>(false)
 
     useEffect(() => {
-        getMovies()
-    }, [])
+        getMovies(ratingFilter)
+    }, [ratingFilter, moviesDataChanged])
+
+    const filterByRating = (rate: number | string) => {
+        if (rate !== ratingFilter) setRatingFilter(rate)
+    }
+
+    const handleEditMovie = (movie: IMovie) => {
+        editMovie(movie)
+        setMoviesDataChanged(prevState => !prevState)
+    }
+
+    const handleDeleteMovie = (id: string) => {
+        deleteMovie(id)
+        setMoviesDataChanged(prevState => !prevState)
+    }
+
+    const handleAddMovie = (movie: IMovie) => {
+        addMovie(movie)
+        setMoviesDataChanged(prevState => !prevState)
+    }
 
     return (
         <>
@@ -23,8 +56,8 @@ const MoviesTable = () => {
                 <RatingSelector onChoice={filterByRating} />
                 <ProjectButton
                     text='Добавить фильм'
-                    button_style='primary'
-                    onClick={() => { }}
+                    button_style={isAddingMovie ? 'disabled' : 'primary'}
+                    onClick={startAddingMovie}
                     buttonClass={styles['add-movie-btn']}
                 />
             </div>
@@ -41,20 +74,35 @@ const MoviesTable = () => {
 
                 <tbody className={styles.table__body}>
                     {
-                        movies.map(movie =>
-                            <Movie
-                                key={movie.id}
-                                movie={movie}
-                                rowClass={styles.table__row}
-                                acceptChanges={editMovie}
-                                deleteMovie={deleteMovie}
-                            />)
+                        isAddingMovie
+                        &&
+                        <MovieForm
+                            acceptChanges={handleAddMovie}
+                            stopEditingMovie={stopAddingMovie}
+                            rowClass={styles.table__row}
+                        />
+                    }
+                    {
+                        movies.length === 0 ?
+                            <tr className={styles.table__row}>
+                                <td className={styles['empty-table-text']}>
+                                    Ничего не найдено
+                                </td>
+                            </tr>
+                            :
+                            movies.map(movie =>
+                                <Movie
+                                    key={movie.id}
+                                    movie={movie}
+                                    rowClass={styles.table__row}
+                                    acceptChanges={handleEditMovie}
+                                    deleteMovie={handleDeleteMovie}
+                                />)
                     }
 
                 </tbody>
             </table>
         </>
-
     )
 }
 

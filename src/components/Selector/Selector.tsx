@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { RatingSelectorOption } from '../../assets/interfaces/RatingSelectorOption';
 import styles from './Selector.module.scss'
 import arrowIcon from '../../assets/img/arrow.svg'
@@ -10,6 +10,16 @@ interface SelectorProps {
     options: RatingSelectorOption[],
     onChoice(value: any): any,
 }
+
+/**
+ * Кастомный селектор рейтинга фильма
+ *
+ * @param title - внутренний лейбл (название) селектора
+ * @param onChoice - функция, выполняемая при выборе опции из селектора
+ * @param options - массив опций селектора
+ * @param defaultValue - элемент из массива опций, выбранный по умолчанию
+ * 
+ */
 
 const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice }) => {
 
@@ -31,7 +41,7 @@ const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice })
 
         <div
             tabIndex={1}
-          
+
             className={cn(styles.selector,
                 { [styles['selector_options-menu-opened']]: optionsOpened })}
         >
@@ -57,9 +67,6 @@ const Selector: FC<SelectorProps> = ({ title, defaultValue, options, onChoice })
                 )}
             </div>
         </div>
-
-
-
     )
 }
 

@@ -1,8 +1,8 @@
 import { Dispatch } from 'react'
-import { useDispatch } from 'react-redux'
 import IMovie from '../../assets/interfaces/IMovie'
 import moviesJSON from '../../assets/MOCK_DATA.json'
-import { MovieAction } from '../actions/movies'
+import { MovieAction, MovieActionTypes } from '../actions/movies'
+import { v4 as uuidv4 } from 'uuid';
 
 // По хорошему тут должны быть async-запросы на backend, позволяющие изменять записи в БД
 // но в рамках тестового задания обойдемся без бека и будем изменять данные о фильмах 
@@ -10,50 +10,47 @@ import { MovieAction } from '../actions/movies'
 
 let movies = moviesJSON
 
-export const getMovies = () => {
+// Здесь по хорошему делать интерфейс под объект с разными типами фильтров,
+// но в рамках задания этого не требуется
+
+export const getMovies = (filter?: number | string) => {
     return (dispatch: Dispatch<MovieAction>) => {
-        dispatch({ type: 'CHANGE_MOVIES_STATE', payload: movies })
+        const moviesToState = filter ? filterByRating(filter) : movies
+        dispatch({ type: MovieActionTypes.CHANGE_MOVIES_STATE, payload: moviesToState })
     }
 }
 
-export const filterByRating = (rate: number | string) => {
-    return (dispatch: Dispatch<MovieAction>) => {
-        if (rate > 0 && rate <= 5) {
-            const filteredMovies = movies.filter((movie) => movie.rate === rate)
-            dispatch({ type: 'CHANGE_MOVIES_STATE', payload: filteredMovies })
-            return
-        }
-
-        // Если rate = 'all'
-        dispatch({ type: 'CHANGE_MOVIES_STATE', payload: movies })
+const filterByRating = (rate: number | string) => {
+    if (rate > 0 && rate <= 5) {
+        const filteredMovies = movies.filter((movie) => movie.rate === rate)
+        return filteredMovies
     }
+
+    // Если rate = 'all'
+    return movies
 }
 
 export const editMovie = (movie: IMovie) => {
     return (dispatch: Dispatch<MovieAction>) => {
-
         movies = movies.map(movieElement => {
             if (movie.id === movieElement.id)
                 return { ...movieElement, ...movie }
 
             return movieElement
         })
-        dispatch({ type: 'CHANGE_MOVIES_STATE', payload: movies })
     }
 }
 
 export const deleteMovie = (id: string) => {
     return (dispatch: Dispatch<MovieAction>) => {
-
         movies = movies.filter(movie => movie.id !== id)
-        dispatch({ type: 'CHANGE_MOVIES_STATE', payload: movies })
     }
 }
 
 export const addMovie = (movie: IMovie) => {
     return (dispatch: Dispatch<MovieAction>) => {
-
-        movies.unshift(movie)
-        dispatch({ type: 'CHANGE_MOVIES_STATE', payload: movies })
+        const appendId = uuidv4()
+        movie = { ...movie, id: appendId }
+        movies = [movie, ...movies]
     }
 }

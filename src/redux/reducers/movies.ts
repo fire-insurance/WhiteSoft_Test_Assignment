@@ -16,7 +16,6 @@ const initialState: MoviesState = {
 }
 
 export const moviesReducer = (state = initialState, action: MovieAction) => {
-    console.log(action.payload)
     switch (action.type) {
         case "CHANGE_MOVIES_STATE":
             return { movies: action.payload }

@@ -30,6 +30,13 @@
         }
     }
 
+    &_style_disabled {
+        background-color: $light-purple;
+        border: none;
+        color: white;
+        cursor: not-allowed;
+    }
+
     &_style_edit {
         border-color: $styled_orange;
 

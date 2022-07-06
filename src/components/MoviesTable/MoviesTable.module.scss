@@ -12,6 +12,10 @@
     justify-self: flex-end;
 }
 
+.empty-table-text{
+    grid-column: 1/-1;
+}
+
 .table {
     background-color: white;
     padding: 14px 0px;
@@ -19,6 +23,7 @@
     overflow: hidden;
     box-shadow: 0px 0px 20px #f9f2fb;
     border-collapse: collapse;
+    width: 100%;
 
     &__row {
         display: grid;

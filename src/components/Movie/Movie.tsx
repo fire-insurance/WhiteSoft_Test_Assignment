@@ -1,9 +1,5 @@
 import { FC, useState } from 'react';
 import IMovie from '../../assets/interfaces/IMovie';
-import styles from './Movie.module.scss'
-import trimText from '../../assets/helpers/trimText'
-import StarsRating from '../StarsRating/StarsRating';
-import ProjectButton from '../ProjectButton/ProjectButton';
 import MovieView from './MovieView';
 import MovieForm from './MovieForm';
 
@@ -13,6 +9,16 @@ interface MovieComponent {
     acceptChanges(movie: IMovie): void,
     deleteMovie(id: string): void
 }
+
+/**
+ * Возвращает компонент фильма с возможностью переключения режима с readonly на форму с инпутами
+ *
+ * @param movie - объект типа {@link IMovie}
+ * @param rowClass - класс, задающий стиль контейнера 
+ * @param acceptChanges - функция, выполняемая по клику на кнопку "принять" в  подкомпоненте с формой изменения фильма
+ * @param deleteMovie - функция, выполняемая по клику на кнопку "удалить" в данном компоненте
+ *
+ */
 
 const Movie: FC<MovieComponent> = ({ movie, rowClass, acceptChanges, deleteMovie }) => {
 
@@ -39,7 +45,6 @@ const Movie: FC<MovieComponent> = ({ movie, rowClass, acceptChanges, deleteMovie
                         rowClass={rowClass}
                     ></MovieView>
             }
-
         </>
     )
 }

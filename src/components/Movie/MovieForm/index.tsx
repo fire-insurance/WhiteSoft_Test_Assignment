@@ -12,22 +12,34 @@ interface MovieComponent {
     rowClass?: string,
     stopEditingMovie(): any,
     acceptChanges(movie: IMovie): void,
-    deleteMovie?(id: string): () => void
 }
 
 type ValidationErrors = Partial<Omit<IMovie, 'id' | 'rate'>>
 
-const MovieForm: FC<MovieComponent> = ({ movie, rowClass, stopEditingMovie, acceptChanges, deleteMovie }) => {
+/**
+ * Возвращает форму добавления/изменения фильма
+ *
+ * @param movie - объект типа {@link IMovie}
+ * @param rowClass - класс, задающий стиль контейнера компонента
+ * @param stopEditingMovie() - функция, выполняемая по клику на кнопку "отменить" в данном компоненте
+ * @param acceptChanges(movie) - функция, выполняемая по клику на кнопку "принять" в данном компоненте
+ *
+ */
+
+const MovieForm: FC<MovieComponent> = ({ movie, rowClass, stopEditingMovie, acceptChanges }) => {
 
     const [movieState, setMovieState] = useState<IMovie>(movie ?? defaultMovie)
     const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
 
+    // Управление текстовыми инпутами
     const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const inputName = e.currentTarget.name
         const inputValue = e.currentTarget.value
 
+        // Не изменяем значения поля comment в состоянии, если полученная длина больше 200
         if (inputName === 'comment' && inputValue.length > 200) return
 
+        // Если для поля существует ошибка заполнения - снимаем ее 
         if (validationErrors[inputName as keyof ValidationErrors]) {
             setValidationErrors(prevState => {
                 return { ...prevState, [inputName]: '' }
@@ -46,11 +58,10 @@ const MovieForm: FC<MovieComponent> = ({ movie, rowClass, stopEditingMovie, acce
     }
 
     const handleSubmit = () => {
-
         for (const key in movieState) {
             const keyValue = movieState[key as keyof IMovie]
+            if (keyValue === '' && key !== 'id') {
 
-            if (keyValue === '') {
                 setValidationErrors(prevState => {
                     return { ...prevState, [key]: 'Поле не должно быть пустым' }
                 })

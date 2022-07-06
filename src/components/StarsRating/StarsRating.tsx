@@ -8,6 +8,14 @@ interface StarsRatingProps {
     smallStars?: boolean
 }
 
+/**
+ * Кастомное отображение оценки фильма от 1 до 5
+ *
+ * @param rate - оценка от 1 до 5
+ * @param smallStars - флаг, определяющий следует ли уменьшить звездочки
+ *
+ */
+
 const StarsRating: FC<StarsRatingProps> = ({ rate, smallStars = false }) => {
 
     const starsTemplate = [1, 2, 3, 4, 5]

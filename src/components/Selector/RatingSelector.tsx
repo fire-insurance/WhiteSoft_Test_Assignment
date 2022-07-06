@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import { RatingSelectorOption } from "../../assets/interfaces/RatingSelectorOption"
 import StarsRating from "../StarsRating/StarsRating"
 import Selector from "./Selector"
@@ -17,6 +17,17 @@ interface RatingSelectorProps {
     title?: string,
     smallStars?: boolean
 }
+
+/**
+ * Кастомный селектор рейтинга фильма
+ *
+ * @param onChoice - функция, выполняемая при выборе опции из селектора
+ * @param hasAllOption - флаг, определяющий наличие опции "Все"
+ * @param defaultValueIndex - индекс значения по умолчанию в массиве опций селектора
+ * @param title - внутренний лейбл (название) селектора
+ * @param smallStars - флаг, определяющий следует ли уменьшить звездочки в опциях селектора
+ * 
+ */
 
 const RatingSelector: FC<RatingSelectorProps> = ({ onChoice, hasAllOption = true, defaultValueIndex = 0, title, smallStars }) => {
 

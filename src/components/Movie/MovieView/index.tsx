@@ -12,6 +12,16 @@ interface MovieComponent {
     deleteMovie(id: string): any
 }
 
+/**
+ * Возвращает контейнер с данными фильма и кнопками "удалить" и "изменить"
+ *
+ * @param movie - объект типа {@link IMovie}
+ * @param rowClass - класс, задающий стиль контейнера компонента
+ * @param startEditingMovie - функция, выполняемая по клику на кнопку "изменить" в данном компоненте
+ * @param deleteMovie - функция, выполняемая по клику на кнопку "удалить" в данном компоненте
+ *
+ */
+
 const MovieView: FC<MovieComponent> = ({ movie, rowClass, startEditingMovie, deleteMovie }) => {
 
     const { id, title, rate, comment, date } = movie
@@ -51,6 +61,5 @@ const MovieView: FC<MovieComponent> = ({ movie, rowClass, startEditingMovie, del
         </tr>
     )
 }
-
 
 export default MovieView
